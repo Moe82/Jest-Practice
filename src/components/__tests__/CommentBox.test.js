@@ -24,3 +24,14 @@ it('has a functional text area', () => {
 	component.update();
 	expect(component.find('textarea').prop('value')).toEqual('new comment');
 });
+
+it('clears text area after submit', () => {
+	component.find('textarea').simulate('change', {
+		target: { value: 'new comment', name: 'comment' },
+	});
+	component.update();
+	expect(component.find('textarea').prop('value')).toEqual('new comment');
+	component.find('form').simulate('submit');
+	component.update();
+	expect(component.find('textarea').prop('value')).toEqual('');
+});
