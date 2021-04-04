@@ -17,21 +17,20 @@ it('has a text area and button', () => {
 	expect(component.find('button').length).toEqual(1);
 });
 
-it('has a functional text area', () => {
-	component.find('textarea').simulate('change', {
-		target: { value: 'new comment', name: 'comment' },
-	}); // simulate the actual HTML event (change) and pass mock event object.
-	component.update();
-	expect(component.find('textarea').prop('value')).toEqual('new comment');
-});
-
-it('clears text area after submit', () => {
-	component.find('textarea').simulate('change', {
-		target: { value: 'new comment', name: 'comment' },
+describe('the text area', () => {
+	beforeEach(() => {
+		component.find('textarea').simulate('change', {
+			target: { value: 'new comment', name: 'comment' },
+		});
+		component.update();
 	});
-	component.update();
-	expect(component.find('textarea').prop('value')).toEqual('new comment');
-	component.find('form').simulate('submit');
-	component.update();
-	expect(component.find('textarea').prop('value')).toEqual('');
+	it('has a functional text area', () => {
+		expect(component.find('textarea').prop('value')).toEqual('new comment')()();
+	});
+
+	it('clears text area after submit', () => {
+		component.find('form').simulate('submit');
+		component.update();
+		expect(component.find('textarea').prop('value')).toEqual('');
+	});
 });
